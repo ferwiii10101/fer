@@ -1,194 +1,168 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Traductor</title>
-  <style>
-    .vimeo-item *,
-    .ytube-item * {
-      object-fit: cover;
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-    .vimeo-item,
-    .ytube-item {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    .vimeo-item:before,
-    .ytube-item:before {
-      content: "";
-      display: block;
-      padding-top: 56.25%;
-    }
-    .vimeo-play,
-    .ytube-play {
-      transform: scale(var(--icon-is, 1));
-      transition: transform 0.3s;
-      stroke-linejoin: round;
-      fill: none;
-      margin: auto;
-      z-index: 1;
-    }
-    .countdown {
-      display: flex;
-      gap: var(--countdown-gap, 0.5rem);
-    }
-    .countdown:not(.countdown-started) {
-      display: none;
-    }
-    .countdown-value {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      color: var(--countdown-color, #fff);
-      background-color: var(--countdown-bg, #22212b);
-      border-radius: 1rem;
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,0.14),
-                  0 1px 10px 0 rgba(0,0,0,0.12),
-                  0 2px 4px -1px rgba(0,0,0,0.2);
-    }
-    .countdown-value > * {
-      padding: 0.5rem 0.875rem;
-    }
-    .countdown-number {
-      border-bottom: 1px solid rgba(0,0,0,0.9);
-    }
-    .countdown-name {
-      font-size: 0.875rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .goog-te-gadget span,
-    body > .skiptranslate {
-      display: none !important;
-    }
-    body[style*=top] {
-      top: auto !important;
-    }
-    body[style*=top] font {
-      background: 0 0 !important;
-      box-shadow: none !important;
-    }
-    .goog-te-gadget {
-      color: transparent !important;
-      font-size: 0px !important;
-    }
-    
-    .ytube {
-      display: grid;
-      gap: var(--yt-gap, 1rem);
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--yt-min-width, 280px)), 1fr));
-    }
-    .ytube:not(.ytube-started) {
-      display: none;
-    }
-    .ytube-item {
-      background-color: #000;
-      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
-    }
-    .ytube-item:hover {
-      --icon-is: 1.25;
-    }
-    .ytube-play {
-      stroke-width: 3;
-      stroke: var(--yt-icon-color, #fff);
-      width: var(--yt-icon-size, 3rem);
-    }
-    .vimeo {
-      display: grid;
-      gap: var(--vm-gap, 1rem);
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--vm-min-width, 280px)), 1fr));
-    }
-    .vimeo:not(.vimeo-started) {
-      display: none;
-    }
-    .vimeo-item {
-      background-color: #000;
-      border-radius: 0.5rem;
-    }
-    .vimeo-item:hover {
-      --icon-is: 1.25;
-    }
-    .vimeo-play {
-      stroke-width: 2;
-      stroke: var(--vm-icon-color, #fff);
-      width: var(--vm-icon-size, 4rem);
-      transform: scale(var(--vm-is, 1));
-    }
-    
-    /* ============================= */
-    /*      ESTILOS DEL TRADUCTOR    */
-    /* ============================= */
-    .gtranslate {
-      position: relative;
-      display: inline-block;
-      /* Variables originales */
-      --gt-padding: 0.75rem;
-      --gt-font: "Roboto", sans-serif;
-      --gt-svg-size: 20px;
-      /* Nuevo icono (data URI del SVG proporcionado) */
-      --gt-svg: url('data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns:xlink%3D%22http%3A//www.w3.org/1999/xlink%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20512%20512%22%20style%3D%22enable-background%3Anew%200%200%20512%20512%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20d%3D%22M467%2C91H237.25l-34.528%2C415.796c6.068%2C3.034%2C12.594%2C5.204%2C19.763%2C5.204H467c24.814%2C0%2C45-20.186%2C45-45V136C512%2C111.186%2C491.814%2C91%2C467%2C91z%22%20fill%3D%22%23DAE2F2%22%3E%3C/path%3E%3Cpath%20d%3D%22M169.867%2C407.86l7.969%2C64.721c1.6%2C12.854%2C10.3%2C26.922%2C24.886%2C34.215c29.167-31.374%2C9.614-11.341%2C78.829-85.796L169.867%2C407.86z%22%20fill%3D%22%234D97FF%22%3E%3C/path%3E%3Cpath%20d%3D%22M281.551%2C421c4.907-5.608%2C9.211-9.373%2C8.053-17.095l-45.44-364.486C241.366%2C16.948%2C222.162%2C0%2C199.516%2C0H45C20.186%2C0%2C0%2C20.186%2C0%2C45v331c0%2C24.814%2C20.186%2C45%2C45%2C45C123.402%2C421%2C202.898%2C421%2C281.551%2C421z%22%20fill%3D%22%234DB5FF%22%3E%3C/path%3E%3Cpath%20d%3D%22M165.707%2C118.056C164.301%2C111.054%2C158.148%2C106%2C151%2C106h-30c-7.148%2C0-13.301%2C5.054-14.707%2C12.056l-30%2C150c-1.626%2C8.13%2C3.647%2C16.025%2C11.763%2C17.651c8.218%2C1.685%2C16.04-3.647%2C17.651-11.763L115.294%2C226h41.411l9.587%2C47.944c1.641%2C8.237%2C9.697%2C13.4%2C17.651%2C11.763c8.115-1.626%2C13.389-9.521%2C11.763-17.651L165.707%2C118.056z%20M121.293%2C196l11.997-60h5.42l11.997%2C60H121.293z%22%20fill%3D%22%23E6EEFF%22%3E%3C/path%3E%3Cpath%20d%3D%22M436%2C226h-45v-15c0-8.291-6.709-15-15-15s-15%2C6.709-15%2C15v15h-45c-8.291%2C0-15%2C6.709-15%2C15s6.709%2C15%2C15%2C15h4.006c8.535%2C27.383%2C21.07%2C48.81%2C35.136%2C65.702c-11.019%2C10.074-21.802%2C18.339-33.518%2C27.594c-6.459%2C5.171-7.514%2C14.604-2.328%2C21.079c5.162%2C6.465%2C14.632%2C7.514%2C21.078%2C2.329c12.73-10.047%2C23.679-18.456%2C35.626-29.421c11.947%2C10.966%2C22.896%2C19.375%2C35.624-29.421c6.448%2C5.185%2C15.918%2C4.136%2C21.08-2.329c5.186-6.475%2C4.131-15.908-2.33-21.079c-11.715-9.255-22.498-17.52-33.517-27.594c14.066-16.891%2C26.602-38.318%2C35.136-65.702H436c8.291%2C0%2C15-6.709%2C15-15S444.291%2C226%2C436%2C226z%20M376%2C299.467c-9.534-11.984-18.149-26.069-24.626-43.467h49.252C394.149%2C273.399%2C385.534%2C287.483%2C376%2C299.467z%22%20fill%3D%22%2353565C%22%3E%3C/path%3E%3C/svg%3E');
-      font-family: var(--translate-font);
-    }
-    
-    /* El icono se muestra siempre mediante el pseudo-elemento y NO se ve afectado */
-    .gtranslate::before {
-      content: "";
-      display: block;
-      width: var(--gt-svg-size);
-      height: var(--gt-svg-size);
-      background: var(--gt-svg) no-repeat center;
-      background-size: contain;
-    }
-    
-    /* El <select> se coloca sobre el icono, pero permanece del mismo tamaño y transparente */
-    .gtranslate select {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: var(--gt-svg-size);
-      height: var(--gt-svg-size);
-      opacity: 0;
-      cursor: pointer;
-      z-index: 2;
-      border: none;
-      background: transparent;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-    
-    /* Al enfocar, se utiliza el dropdown nativo sin expandir el control (se mantiene el icono) */
-    .gtranslate select:focus {
-      outline: none;
-    }
-    
-    /* Estilos para el panel desplegable (opciones del select) */
-    .gtranslate select option {
-      background-color: #1a1c23;
-      color: #fff;
-      border: 0.7px solid #383b45;
-    }
-  </style>
-</head>
-<body>
-  <div class="gtranslate">
-    <select>
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="de">Deutsch</option>
-      <option value="it">Italiano</option>
-      <option value="pt">Português</option>
-      <option value="ru">Русский</option>
-      <option value="zh">中文</option>
-      <option value="ja">日本語</option>
-      <option value="ar">العربية</option>
-      <!-- Puedes agregar más idiomas según necesites -->
-    </select>
-  </div>
-</body>
-</html>
+.vimeo-item *,
+.ytube-item * {
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.vimeo-item,
+.ytube-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.vimeo-item:before,
+.ytube-item:before {
+  content: "";
+  display: block;
+  padding-top: 56.25%;
+}
+.vimeo-play,
+.ytube-play {
+  transform: scale(var(--icon-is, 1));
+  transition: transform 0.3s;
+  stroke-linejoin: round;
+  fill: none;
+  margin: auto;
+  z-index: 1;
+}
+.countdown {
+  display: flex;
+  gap: var(--countdown-gap, 0.5rem);
+}
+.countdown:not(.countdown-started) {
+  display: none;
+}
+.countdown-value {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: var(--countdown-color, #fff);
+  background-color: var(--countdown-bg, #22212b);
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.14),
+              0 1px 10px 0 rgba(0,0,0,0.12),
+              0 2px 4px -1px rgba(0,0,0,0.2);
+}
+.countdown-value > * {
+  padding: 0.5rem 0.875rem;
+}
+.countdown-number {
+  border-bottom: 1px solid rgba(0,0,0,0.9);
+}
+.countdown-name {
+  font-size: 0.875rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.goog-te-gadget span,
+body > .skiptranslate {
+  display: none !important;
+}
+body[style*=top] {
+  top: auto !important;
+}
+body[style*=top] font {
+  background: 0 0 !important;
+  box-shadow: none !important;
+}
+.goog-te-gadget {
+  color: transparent !important;
+  font-size: 0px !important;
+}
+
+.ytube {
+  display: grid;
+  gap: var(--yt-gap, 1rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--yt-min-width, 280px)), 1fr));
+}
+.ytube:not(.ytube-started) {
+  display: none;
+}
+.ytube-item {
+  background-color: #000;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
+}
+.ytube-item:hover {
+  --icon-is: 1.25;
+}
+.ytube-play {
+  stroke-width: 3;
+  stroke: var(--yt-icon-color, #fff);
+  width: var(--yt-icon-size, 3rem);
+}
+.vimeo {
+  display: grid;
+  gap: var(--vm-gap, 1rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--vm-min-width, 280px)), 1fr));
+}
+.vimeo:not(.vimeo-started) {
+  display: none;
+}
+.vimeo-item {
+  background-color: #000;
+  border-radius: 0.5rem;
+}
+.vimeo-item:hover {
+  --icon-is: 1.25;
+}
+.vimeo-play {
+  stroke-width: 2;
+  stroke: var(--vm-icon-color, #fff);
+  width: var(--vm-icon-size, 4rem);
+  transform: scale(var(--vm-is, 1));
+}
+
+/* ============================= */
+/*      ESTILOS DEL TRADUCTOR    */
+/* ============================= */
+.gtranslate {
+  position: relative;
+  display: inline-block;
+  /* Variables originales */
+  --gt-padding: 0.75rem;
+  --gt-font: "Roboto", sans-serif;
+  --gt-svg-size: 20px;
+  /* Nuevo icono (data URI del SVG proporcionado) */
+  --gt-svg: url('data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns:xlink%3D%22http%3A//www.w3.org/1999/xlink%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20512%20512%22%20style%3D%22enable-background%3Anew%200%200%20512%20512%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cg%3E%3Cg%3E%3Cpath%20d%3D%22M217.982,201.586h-64.499c-5.537,0-10.026,4.489-10.026,10.026c0,5.537,4.489,10.026,10.026,10.026h53.547%20c-4.72,25.263-26.935,44.446-53.547,44.446c-30.037,0-54.473-24.436-54.473-54.473c0-30.037,24.436-54.473,54.473-54.473%20c14.55,0,28.229,5.667,38.518,15.955c3.916,3.916,10.264,3.916,14.178,0c3.916-3.916,3.916-10.264,0-14.178%20c-14.077-14.077-32.791-21.829-52.697-21.829c-41.094,0-74.525,33.431-74.525,74.525c0,41.094,33.431,74.525,74.525,74.525%20s74.525-33.431,74.525-74.525C228.008,206.075,223.519,201.586,217.982,201.586z%22%20fill%3D%22%23000000%22%20style%3D%22fill%3A%20rgb(255,%20255,%20255);%22%3E%3C/path%3E%3C/g%3E%3C/g%3E%3Cg%3E%3Cg%3E%3Cpath%20d%3D%22M470.331,92.24H269.728l-26.935-81.355c-1.358-4.104-5.195-6.875-9.518-6.875H41.669C18.693,4.01,0,22.703,0,45.679v332.412c0,22.976,18.693,41.669,41.669,41.669h203.145l27.073,81.369c1.364,4.097,5.195,6.861,9.513,6.861h188.932c22.976,0,41.669-18.693,41.669-41.669V133.909C512,110.933,493.307,92.24,470.331,92.24z%20M41.669,399.708c-11.919,0-21.616-9.697-21.616-21.616V45.679c0-11.919,9.697-21.616,21.616-21.616h184.364l70.691,213.516c0.004,0.015,0.009,0.028,0.015,0.043l53.664,162.086H41.669z%20M337.449,283.275c0.805,1.11,10.824,14.877,26.355,34.066c-4.377,5.756-9.015,11.474-13.91,17.036l-29.712-89.74h87.441c-6.196,13.031-16.938,33.813-31.692,55.736c-13.553-16.921-22.069-28.622-22.249-28.87c-3.251-4.482-9.519-5.481-14.002-2.23C335.198,272.523,334.2,278.791,337.449,283.275z%20M265.946,419.76h75.162l-55.503,59.084L265.946,419.76z%20M491.948,466.321c0,11.919-9.697,21.616-21.616,21.616H304.575l67.015-71.339l-0.004-0.003c0.293-0.312,0.571-0.64,0.823-0.991c1.885-2.609,2.402-5.966,1.39-9.022l-16.688-50.402c7.073-7.406,13.68-15.143,19.805-22.965c13.299,15.772,29.037,33.446,45.778,50.187c1.957,1.957,4.524,2.937,7.089,2.937s5.132-0.979,7.089-2.937c3.916-3.916,3.916-10.264,0-14.178c-17.461-17.461-34.013-36.244-47.687-52.632c21.251-30.503,35.033-59.504,40.535-71.954h21.454c5.537,0,10.026-4.489,10.026-10.026c0-5.537-4.489-10.026-10.026-10.026h-28.212c-0.017,0-0.036,0-0.054,0h-37.907v-18.047c0-5.537-4.489-10.026-10.026-10.026c-5.537,0-10.026,4.489-10.026,10.026v18.046h-51.406l-37.178-112.292h193.965c11.919,0,21.616,9.697,21.616,21.616V466.321z%22%20fill%3D%22%23000000%22%20style%3D%22fill%3A%20rgb(255,%20255,%20255);%22%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+  font-family: var(--translate-font);
+}
+
+/* El icono se muestra siempre mediante el pseudo-elemento y NO se ve afectado */
+.gtranslate::before {
+  content: "";
+  display: block;
+  width: var(--gt-svg-size);
+  height: var(--gt-svg-size);
+  background: var(--gt-svg) no-repeat center;
+  background-size: contain;
+}
+
+/* El <select> se coloca sobre el icono, pero permanece del mismo tamaño y transparente */
+.gtranslate select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--gt-svg-size);
+  height: var(--gt-svg-size);
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+  border: none;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Al enfocar, se utiliza el dropdown nativo sin expandir el control (se mantiene el icono) */
+.gtranslate select:focus {
+  outline: none;
+}
+
+/* Estilos para el panel desplegable (opciones del select) */
+.gtranslate select option {
+  background-color: #1a1c23;
+  color: #fff;
+  border: 0.7px solid #383b45;
+}

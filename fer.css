@@ -1,175 +1,148 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Traductor Minimalista</title>
-  <style>
-    /* Estilos para elementos de Vimeo y YouTube */
-    .vimeo-item *,
-    .ytube-item * {
-      object-fit: cover;
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-    .vimeo-item,
-    .ytube-item {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    .vimeo-item:before,
-    .ytube-item:before {
-      content: "";
-      display: block;
-      padding-top: 56.25%;
-    }
-    .vimeo-play,
-    .ytube-play {
-      transform: scale(var(--icon-is, 1));
-      transition: transform 0.3s;
-      stroke-linejoin: round;
-      fill: none;
-      margin: auto;
-      z-index: 1;
-    }
-    
-    /* Estilos para el contador (countdown) */
-    .countdown {
-      display: flex;
-      gap: var(--countdown-gap, 0.5rem);
-    }
-    .countdown:not(.countdown-started) {
-      display: none;
-    }
-    .countdown-value {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      color: var(--countdown-color, #fff);
-      background-color: var(--countdown-bg, #22212b);
-      border-radius: 1rem;
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,0.14),
-                  0 1px 10px 0 rgba(0,0,0,0.12),
-                  0 2px 4px -1px rgba(0,0,0,0.2);
-    }
-    .countdown-value > * {
-      padding: 0.5rem 0.875rem;
-    }
-    .countdown-number {
-      border-bottom: 1px solid rgba(0,0,0,0.9);
-    }
-    .countdown-name {
-      font-size: 0.875rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    /* Oculta elementos de Google Translate que agregan contenedores extra */
-    .goog-te-gadget span,
-    body > .skiptranslate {
-      display: none !important;
-    }
-    body[style*=top] {
-      top: auto !important;
-    }
-    body[style*=top] font {
-      background: 0 0 !important;
-      box-shadow: none !important;
-    }
-    .goog-te-gadget {
-      color: transparent !important;
-      font-size: 0px !important;
-    }
-    
-    /* Traductor minimalista: solo ícono sin contenedor ni select */
-    .gtranslate {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h14M9 2v3m4 0q-2 8-9 11m2-7q2 4 6 6m1 7 5-11 5 11m-1.4-3h-7.2"/></svg>');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      cursor: pointer;
-    }
-    /* En caso de que se genere un select, se oculta */
-    .gtranslate select {
-      display: none;
-    }
-    
-    /* Estilos para secciones de YouTube */
-    .ytube {
-      display: grid;
-      gap: var(--yt-gap, 1rem);
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--yt-min-width, 280px)), 1fr));
-    }
-    .ytube:not(.ytube-started) {
-      display: none;
-    }
-    .ytube-item {
-      background-color: #000;
-      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
-    }
-    .ytube-item:hover {
-      --icon-is: 1.25;
-    }
-    .ytube-play {
-      stroke-width: 3;
-      stroke: var(--yt-icon-color, #fff);
-      width: var(--yt-icon-size, 3rem);
-    }
-    
-    /* Estilos para secciones de Vimeo */
-    .vimeo {
-      display: grid;
-      gap: var(--vm-gap, 1rem);
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--vm-min-width, 280px)), 1fr));
-    }
-    .vimeo:not(.vimeo-started) {
-      display: none;
-    }
-    .vimeo-item {
-      background-color: #000;
-      border-radius: 0.5rem;
-    }
-    .vimeo-item:hover {
-      --icon-is: 1.25;
-    }
-    .vimeo-play {
-      stroke-width: 2;
-      stroke: var(--vm-icon-color, #fff);
-      width: var(--vm-icon-size, 4rem);
-      transform: scale(var(--vm-is, 1));
-    }
-  </style>
-</head>
-<body>
-  <!-- Ícono minimalista del traductor (sin select ni contenedor extra) -->
-  <div class="gtranslate" onclick="alert('Aquí iría la acción para traducir')"></div>
-  
-  <!-- Ejemplo de sección Vimeo (opcional) -->
-  <div class="vimeo">
-    <div class="vimeo-item">
-      <div class="vimeo-play"></div>
-    </div>
-  </div>
-  
-  <!-- Ejemplo de sección YouTube (opcional) -->
-  <div class="ytube">
-    <div class="ytube-item">
-      <div class="ytube-play"></div>
-    </div>
-  </div>
-  
-  <!-- Ejemplo de contador (countdown) (opcional) -->
-  <div class="countdown countdown-started">
-    <div class="countdown-value">
-      <div class="countdown-number">10</div>
-      <div class="countdown-name">Segundos</div>
-    </div>
-  </div>
-</body>
-</html>
+.vimeo-item *,
+.ytube-item * {
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0
+}
+.vimeo-item,
+.ytube-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer
+}
+.vimeo-item:before,
+.ytube-item:before {
+  content: "";
+  display: block;
+  padding-top: 56.25%
+}
+.vimeo-play,
+.ytube-play {
+  transform: scale(var(--icon-is, 1));
+  transition: transform .3s;
+  stroke-linejoin: round;
+  fill: none;
+  margin: auto;
+  z-index: 1
+}
+.countdown {
+  display: flex;
+  gap: var(--countdown-gap, .5rem)
+}
+.countdown:not(.countdown-started) {
+  display: none
+}
+.countdown-value {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: var(--countdown-color, #fff);
+  background-color: var(--countdown-bg, #22212b);
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2)
+}
+.countdown-value > * {
+  padding: .5rem .875rem
+}
+.countdown-number {
+  border-bottom: 1px solid rgba(0, 0, 0, .9)
+}
+.countdown-name {
+  font-size: .875rem;
+  border-top: 1px solid rgba(255, 255, 255, .1)
+}
+.goog-te-gadget span,
+body > .skiptranslate {
+  display: none !important
+}
+body[style*=top] {
+  top: auto !important
+}
+body[style*=top] font {
+  background: 0 0 !important;
+  box-shadow: none !important
+}
+.goog-te-gadget {
+  color: transparent !important;
+  font-size: 0px !important
+}
+
+/* Se modifica solo la parte del traductor para mostrar únicamente el icono */
+.gtranslate {
+  display: inline-block;
+  /* Se elimina el padding y demás estilos de contenedor para ocupar solo el espacio del icono */
+  --gt-svg-size: 20px;
+}
+.gtranslate select {
+  width: var(--gt-svg-size);
+  height: var(--gt-svg-size);
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  /* Se usa el icono ya definido en la variable, con tamaño ajustado */
+  background-image: var(--gt-svg, url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" class="i i-language" viewBox="0 0 24 24" fill="none" stroke="%23a3a3a3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h14M9 2v3m4 0q-2 8-9 11m2-7q2 4 6 6m1 7 5-11 5 11m-1.4-3h-7.2"/></svg>'));
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 0; /* oculta cualquier texto */
+  color: transparent;
+  margin: 0 !important
+}
+.gtranslate select:focus,
+.gtranslate select:hover {
+  /* Si deseas mantener algún feedback visual en focus/hover, puedes ajustarlo aquí; de lo contrario, se mantienen sin borde */
+  border-color: transparent
+}
+.gtranslate select:focus {
+  outline: 0;
+  box-shadow: none
+}
+
+.ytube {
+  display: grid;
+  gap: var(--yt-gap, 1rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--yt-min-width, 280px)), 1fr))
+}
+.ytube:not(.ytube-started) {
+  display: none
+}
+.ytube-item {
+  background-color: #000;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .2)
+}
+.ytube-item:hover {
+  --icon-is: 1.25
+}
+.ytube-play {
+  stroke-width: 3;
+  stroke: var(--yt-icon-color, #fff);
+  width: var(--yt-icon-size, 3rem)
+}
+.vimeo {
+  display: grid;
+  gap: var(--vm-gap, 1rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--vm-min-width, 280px)), 1fr))
+}
+.vimeo:not(.vimeo-started) {
+  display: none
+}
+.vimeo-item {
+  background-color: #000;
+  border-radius: .5rem
+}
+.vimeo-item:hover {
+  --icon-is: 1.25
+}
+.vimeo-play {
+  stroke-width: 2;
+  stroke: var(--vm-icon-color, #fff);
+  width: var(--vm-icon-size, 4rem);
+  transform: scale(var(--vm-is, 1))
+}

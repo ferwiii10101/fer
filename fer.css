@@ -124,12 +124,12 @@ body[style*=top] font {
   --gt-padding: 0.75rem;
   --gt-font: "Roboto", sans-serif;
   --gt-svg-size: 20px;
-  /* Nuevo icono (convertido a data URI) */
-  --gt-svg: url('data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns:xlink%3D%22http%3A//www.w3.org/1999/xlink%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20512%20512%22%20style%3D%22enable-background%3Anew%200%200%20512%20512%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20style%3D%22%22%20d%3D%22M467%2C91H237.25l-34.528%2C415.796c6.068%2C3.034%2C12.594%2C5.204%2C19.763%2C5.204H467c24.814%2C0%2C45-20.186%2C45-45V136C512%2C111.186%2C491.814%2C91%2C467%2C91z%22%20fill%3D%22%23DAE2F2%22%3E%3C/path%3E%3Cpath%20style%3D%22fill%3A%20rgb(148%2C%20150%2C%20168)%3B%22%20d%3D%22M169.867%2C407.86l7.969%2C64.721c1.6%2C12.854%2C10.3%2C26.922%2C24.886%2C34.215c29.167-31.374%2C9.614-11.341%2C78.829-85.796L169.867%2C407.86z%22%20fill%3D%22%234D97FF%22%3E%3C/path%3E%3Cpath%20style%3D%22fill%3A%20rgb(39%2C%2051%2C%2063)%3B%22%20d%3D%22M281.551%2C421c4.907-5.608%2C9.211-9.373%2C8.053-17.095l-45.44-364.486C241.366%2C16.948%2C222.162%2C0%2C199.516%2C0H45C20.186%2C0%2C0%2C20.186%2C0%2C45v331c0%2C24.814%2C20.186%2C45%2C45%2C45C123.402%2C421%2C202.898%2C421%2C281.551%2C421z%22%20fill%3D%22%234DB5FF%22%3E%3C/path%3E%3Cpath%20style%3D%22%22%20d%3D%22M165.707%2C118.056C164.301%2C111.054%2C158.148%2C106%2C151%2C106h-30c-7.148%2C0-13.301%2C5.054-14.707%2C12.056l-30%2C150c-1.626%2C8.13%2C3.647%2C16.025%2C11.763%2C17.651c8.218%2C1.685%2C16.04-3.647%2C17.651-11.763L115.294%2C226h41.411l9.587%2C47.944c1.641%2C8.237%2C9.697%2C13.4%2C17.651%2C11.763c8.115-1.626%2C13.389-9.521%2C11.763-17.651L165.707%2C118.056z%20M121.293%2C196l11.997-60h5.42l11.997%2C60H121.293z%22%20fill%3D%22%23E6EEFF%22%3E%3C/path%3E%3Cpath%20style%3D%22%22%20d%3D%22M436%2C226h-45v-15c0-8.291-6.709-15-15-15s-15%2C6.709-15%2C15v15h-45c-8.291%2C0-15%2C6.709-15%2C15s6.709%2C15%2C15%2C15h4.006c8.535%2C27.383%2C21.07%2C48.81%2C35.136%2C65.702c-11.019%2C10.074-21.802%2C18.339-33.518%2C27.594c-6.459%2C5.171-7.514%2C14.604-2.328%2C21.079c5.162%2C6.465%2C14.632%2C7.514%2C21.078%2C2.329c12.73-10.047%2C23.679-18.456%2C35.626-29.421c11.947%2C10.966%2C22.896%2C19.375%2C35.624-29.421c6.448%2C5.185%2C15.918%2C4.136%2C21.08-2.329c5.186-6.475%2C4.131-15.908-2.33-21.079c-11.715-9.255-22.498-17.52-33.517-27.594c14.066-16.891%2C26.602-38.318%2C35.136-65.702H436c8.291%2C0%2C15-6.709%2C15-15S444.291%2C226%2C436%2C226z%20M376%2C299.467c-9.534-11.984-18.149-26.069-24.626-43.467h49.252C394.149%2C273.399%2C385.534%2C287.483%2C376%2C299.467z%22%20fill%3D%22%2353565C%22%3E%3C/path%3E%3C/svg%3E');
+  /* Nuevo icono (data URI del SVG proporcionado) */
+  --gt-svg: url('data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns:xlink%3D%22http%3A//www.w3.org/1999/xlink%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20512%20512%22%20style%3D%22enable-background%3Anew%200%200%20512%20512%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20d%3D%22M467%2C91H237.25l-34.528%2C415.796c6.068%2C3.034%2C12.594%2C5.204%2C19.763%2C5.204H467c24.814%2C0%2C45-20.186%2C45-45V136C512%2C111.186%2C491.814%2C91%2C467%2C91z%22%20fill%3D%22%23DAE2F2%22%3E%3C/path%3E%3Cpath%20d%3D%22M169.867%2C407.86l7.969%2C64.721c1.6%2C12.854%2C10.3%2C26.922%2C24.886%2C34.215c29.167-31.374%2C9.614-11.341%2C78.829-85.796L169.867%2C407.86z%22%20fill%3D%22%234D97FF%22%3E%3C/path%3E%3Cpath%20d%3D%22M281.551%2C421c4.907-5.608%2C9.211-9.373%2C8.053-17.095l-45.44-364.486C241.366%2C16.948%2C222.162%2C0%2C199.516%2C0H45C20.186%2C0%2C0%2C20.186%2C0%2C45v331c0%2C24.814%2C20.186%2C45%2C45%2C45C123.402%2C421%2C202.898%2C421%2C281.551%2C421z%22%20fill%3D%22%234DB5FF%22%3E%3C/path%3E%3Cpath%20d%3D%22M165.707%2C118.056C164.301%2C111.054%2C158.148%2C106%2C151%2C106h-30c-7.148%2C0-13.301%2C5.054-14.707%2C12.056l-30%2C150c-1.626%2C8.13%2C3.647%2C16.025%2C11.763%2C17.651c8.218%2C1.685%2C16.04-3.647%2C17.651-11.763L115.294%2C226h41.411l9.587%2C47.944c1.641%2C8.237%2C9.697%2C13.4%2C17.651%2C11.763c8.115-1.626%2C13.389-9.521%2C11.763-17.651L165.707%2C118.056z%20M121.293%2C196l11.997-60h5.42l11.997%2C60H121.293z%22%20fill%3D%22%23E6EEFF%22%3E%3C/path%3E%3Cpath%20d%3D%22M436%2C226h-45v-15c0-8.291-6.709-15-15-15s-15%2C6.709-15%2C15v15h-45c-8.291%2C0-15%2C6.709-15%2C15s6.709%2C15%2C15%2C15h4.006c8.535%2C27.383%2C21.07%2C48.81%2C35.136%2C65.702c-11.019%2C10.074-21.802%2C18.339-33.518%2C27.594c-6.459%2C5.171-7.514%2C14.604-2.328%2C21.079c5.162%2C6.465%2C14.632%2C7.514%2C21.078%2C2.329c12.73-10.047%2C23.679-18.456%2C35.626-29.421c11.947%2C10.966%2C22.896%2C19.375%2C35.624-29.421c6.448%2C5.185%2C15.918%2C4.136%2C21.08-2.329c5.186-6.475%2C4.131-15.908-2.33-21.079c-11.715-9.255-22.498-17.52-33.517-27.594c14.066-16.891%2C26.602-38.318%2C35.136-65.702H436c8.291%2C0%2C15-6.709%2C15-15S444.291%2C226%2C436%2C226z%20M376%2C299.467c-9.534-11.984-18.149-26.069-24.626-43.467h49.252C394.149%2C273.399%2C385.534%2C287.483%2C376%2C299.467z%22%20fill%3D%22%2353565C%22%3E%3C/path%3E%3C/svg%3E');
   font-family: var(--translate-font);
 }
 
-/* El icono se muestra siempre mediante el pseudo-elemento y permanece inalterable */
+/* El icono se muestra siempre mediante el pseudo-elemento y NO se ve afectado */
 .gtranslate::before {
   content: "";
   display: block;
@@ -139,7 +139,7 @@ body[style*=top] font {
   background-size: contain;
 }
 
-/* El <select> se coloca inicialmente sobre el icono pero invisible */
+/* El <select> se coloca sobre el icono, pero permanece siempre del mismo tamaño y transparente */
 .gtranslate select {
   position: absolute;
   top: 0;
@@ -155,24 +155,7 @@ body[style*=top] font {
   -webkit-appearance: none;
 }
 
-/* Al enfocar, el <select> (o panel deslizable) se muestra abajo del icono,
-   expandiéndose al 100% con el estilo original del menú, sin modificar el icono */
+/* Al enfocar, NO se expande ni se muestra un cuadro adicional; se elimina únicamente el outline */
 .gtranslate select:focus {
-  opacity: 1;
-  top: calc(var(--gt-svg-size) + 0.25rem);
-  width: 100%;
-  height: auto;
-  padding: var(--gt-padding);
-  padding-right: calc(var(--gt-padding) + var(--gt-svg-size) + 0.5rem);
-  border: 1px solid var(--gt-border-color, #d4d4d4);
-  color: var(--gt-color, #171717);
-  border-radius: 0.5rem;
-  background: var(--gt-bg, #fff);
-  background-position: center right var(--gt-padding);
-  background-size: var(--gt-svg-size);
-  background-repeat: no-repeat;
-  z-index: 10;
-  outline: 0;
-  box-shadow: 0 0 0 3px var(--gt-accent-focus, rgba(20,184,166,0.25));
-  transition: all 0.3s;
+  outline: none;
 }

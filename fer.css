@@ -139,7 +139,7 @@ body[style*=top] font {
   background-size: contain;
 }
 
-/* El <select> se coloca sobre el icono, pero permanece siempre del mismo tamaño y transparente */
+/* El <select> se coloca sobre el icono, pero permanece del mismo tamaño y transparente */
 .gtranslate select {
   position: absolute;
   top: 0;
@@ -153,27 +153,16 @@ body[style*=top] font {
   background: transparent;
   appearance: none;
   -webkit-appearance: none;
-  transition: all 0.3s;
 }
 
-/* Al enfocar, el <select> se expande como panel deslizable con fondo, borde y letras personalizadas */
+/* Al enfocar, no se expande ni se muestra cuadro adicional; se usa el dropdown nativo */
 .gtranslate select:focus {
-  position: relative;
-  opacity: 1;
-  width: 100%;
-  height: auto;
-  padding: var(--gt-padding);
-  padding-right: calc(var(--gt-padding) + var(--gt-svg-size) + 0.5rem);
-  border: 0.7px solid #383b45;
-  background-color: #1a1c23;
-  color: #fff;
-  border-radius: 0.5rem;
   outline: none;
-  z-index: 10;
 }
 
-/* Opciones del select: fondo del panel y letras blancas */
+/* Estilos para el panel desplegable (opciones del select) */
 .gtranslate select option {
   background-color: #1a1c23;
   color: #fff;
+  border: 0.7px solid #383b45;
 }

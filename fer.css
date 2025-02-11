@@ -120,8 +120,9 @@ body[style*=top] font {
 .gtranslate {
   position: relative;
   display: inline-block;
-  margin: 0;       /* Se elimina cualquier margen */
-  padding: 0;      /* Se elimina cualquier padding */
+  margin: 0;       /* Sin margen para evitar separación extra */
+  padding: 0;      /* Sin padding */
+  vertical-align: middle;  /* Alinea verticalmente con otros gadgets */
   /* Variables originales */
   --gt-padding: 0.75rem;
   --gt-font: "Roboto", sans-serif;

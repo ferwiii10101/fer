@@ -42,19 +42,19 @@
   color: var(--countdown-color, #fff);
   background-color: var(--countdown-bg, #22212b);
   border-radius: 1rem;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.14),
-              0 1px 10px 0 rgba(0,0,0,0.12),
-              0 2px 4px -1px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.14),
+              0 1px 10px 0 rgba(0, 0, 0, 0.12),
+              0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 .countdown-value > * {
   padding: 0.5rem 0.875rem;
 }
 .countdown-number {
-  border-bottom: 1px solid rgba(0,0,0,0.9);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.9);
 }
 .countdown-name {
   font-size: 0.875rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .goog-te-gadget span,
 body > .skiptranslate {
@@ -82,7 +82,7 @@ body[style*=top] font {
 }
 .ytube-item {
   background-color: #000;
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 }
 .ytube-item:hover {
   --icon-is: 1.25;
@@ -139,7 +139,7 @@ body[style*=top] font {
   background-size: contain;
 }
 
-/* El <select> se coloca sobre el icono, pero permanece siempre del mismo tamaño y transparente */
+/* El <select> se coloca sobre el icono, inicialmente con tamaño fijo y transparente */
 .gtranslate select {
   position: absolute;
   top: 0;
@@ -155,7 +155,27 @@ body[style*=top] font {
   -webkit-appearance: none;
 }
 
-/* Al enfocar, NO se expande ni se muestra un cuadro adicional; se elimina únicamente el outline */
+/* Al enfocar, se muestra el panel deslizable con los estilos solicitados */
 .gtranslate select:focus {
+  opacity: 1;
+  top: calc(var(--gt-svg-size) + 0.25rem);
+  width: 100%;
+  height: auto;
+  padding: var(--gt-padding);
+  padding-right: calc(var(--gt-padding) + var(--gt-svg-size) + 0.5rem);
+  background-color: #1a1c23;
+  border: 0.7px solid #383b45;
+  color: #fff;
+  border-radius: 0.5rem;
   outline: none;
+  box-shadow: 0 0 0 3px rgba(20,184,166,0.25);
+  transition: all 0.3s;
+  z-index: 10;
+  cursor: pointer;
+}
+
+/* Estilo de las opciones en el panel deslizable */
+.gtranslate select option {
+  background-color: #1a1c23;
+  color: #fff;
 }
